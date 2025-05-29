@@ -1,0 +1,36 @@
+{
+  "name": "max1-whatsapp-bot",
+  "version": "1.0.0",
+  "description": "MAX 1 - WhatsApp Schedule Reminder Bot with Gemini AI",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.2.1",
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^6.5.0",
+    "express": "^5.1.0",
+    "node-cron": "^3.0.3",
+    "pino": "^8.16.1",
+    "qrcode": "^1.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "whatsapp",
+    "bot",
+    "chatbot",
+    "gemini",
+    "ai",
+    "scheduler",
+    "reminder"
+  ],
+  "author": "Maverick",
+  "license": "MIT"
+}
