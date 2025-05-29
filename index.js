@@ -57,7 +57,10 @@ const genAI = new GoogleGenerativeAI({
     apiKey: CONFIG.geminiApiKey,
     baseUrl: 'https://generativelanguage.googleapis.com/v1/' // Gunakan versi API v1
 });
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
+const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+// Logging untuk debugging
+console.log('Menggunakan API Key:', CONFIG.geminiApiKey.substring(0, 10) + '...');
+console.log('Model:', 'gemini-1.5-flash');
 
 // Database jadwal (simple JSON file)
 let scheduleData = {};
