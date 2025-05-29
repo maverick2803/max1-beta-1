@@ -6,16 +6,22 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const cron = require('node-cron');
 const fs = require('fs');
 const express = require('express');
-const QRCode = require('qrcode'); // Tambahkan untuk menyimpan QR code
+const QRCode = require('qrcode');
 
 // Konfigurasi
 const CONFIG = {
     botName: 'MAX 1',
-    adminNumber: '6285183268643@s.whatsapp.net', // Ganti dengan nomor Anda
-    geminiApiKey: process.env.GEMINI_API_KEY || 'AIzaSyBBLbjo_Se1S3t-NfAfXGbVJJP8wD15-is', // Ambil dari env
+    adminNumber: '6285183268643@s.whatsapp.net', // Nomor admin
+    geminiApiKey: process.env.GEMINI_API_KEY, // Ambil dari environment variable
     reminderTime: '07:00', // Waktu reminder harian (format 24 jam)
     scheduleFile: './jadwal.json'
 };
+
+// Validasi API key
+if (!CONFIG.geminiApiKey) {
+    console.error('❌ Error: GEMINI_API_KEY tidak ditemukan di environment variables!');
+    process.exit(1);
+}
 
 // Express server untuk keep-alive dan QR code
 const app = express();
@@ -46,9 +52,12 @@ app.listen(PORT, () => {
     console.log(`🌐 Keep-alive server running on port ${PORT}`);
 });
 
-// Initialize Gemini AI
-const genAI = new GoogleGenerativeAI(CONFIG.geminiApiKey);
-const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+// Initialize Gemini AI dengan model Gemini 2.5 Pro
+const genAI = new GoogleGenerativeAI({
+    apiKey: CONFIG.geminiApiKey,
+    baseUrl: 'https://generativelanguage.googleapis.com/v1/' // Gunakan versi API v1
+});
+const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' });
 
 // Database jadwal (simple JSON file)
 let scheduleData = {};
